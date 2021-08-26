@@ -5,7 +5,7 @@ int ramIndex = 0;
 char* ram[] =
 {
     0x10, 0x00, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x10, 0x01, 0x00, 0x0F, 0x00, 0x00, 0x00, 0x00,
+    0x11, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F,
@@ -56,16 +56,17 @@ void GetBytesFromInstruction(char *rawData, int index)
 
 void CopyFromRegister()
 {
-    // printf(">run<");
-    // char registerIndex = instruction[1];
-    // char* rawPointer = GetBytesFromInstruction(2);
-    // int pointer = (int)rawPointer;
-    // printf(">%d<", pointer);
+    printf(">run<");
+    char registerIndex = instruction[1];
+    char rawData[4];
+    GetBytesFromInstruction(rawData, 2);
+    int pointer = BitToInt(rawData);
+    printf(">%d<", pointer);
 
-    // for (int i = 0; i < 4; i++)
-    // {
-    //     ram[pointer + i] = registers[registerIndex * 4 + i];
-    // }
+    for (int i = 0; i < 4; i++)
+    {
+         ram[pointer + i] = registers[registerIndex * 4 + i];
+    }
 }
 
 void CopyToRegister()
